@@ -5,4 +5,4 @@ A detailview shows selected posts.
 MVC design pattern.
 Naming conventions.
 Folder Stucture.
-Simple and easy to follow the flow of the app. 
+Easy app flow.
