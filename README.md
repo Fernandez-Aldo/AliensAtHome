@@ -1,6 +1,6 @@
 # AliensAtHome
 
-This app consumes the reddit API and display recent posts in a tableview.
+This app consumes the reddit API and displays recent posts in a tableview.
 A detailview shows selected posts.
 MVC design pattern.
 Naming conventions.
