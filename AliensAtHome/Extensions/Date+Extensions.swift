@@ -7,15 +7,15 @@
 //
 
 import Foundation
-//extension created to show appropiate date/time 
-extension DateFormatter {
+//extension created to show appropiate date/time
+
+extension Date {
     
-    func timeSince(from: NSDate) -> String {
+    /// should be called with a date in the past
+    var timeSince: String {
         let calendar = Calendar.current
-        let now = NSDate()
-        let earliest = now.earlierDate(from as Date)
-        let latest = earliest == now as Date ? from : now
-        let components = calendar.dateComponents([.year, .weekOfYear, .month, .day, .hour, .minute, .second], from: earliest, to: latest as Date)
+        let now = Date()
+        let components = calendar.dateComponents([.year, .weekOfYear, .month, .day, .hour, .minute, .second], from: self, to: now)
         
         var result = ""
         
@@ -51,4 +51,5 @@ extension DateFormatter {
         
         return result
     }
+    
 }

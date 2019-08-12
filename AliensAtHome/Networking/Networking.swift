@@ -6,7 +6,6 @@
 //  Copyright © 2019 Aldo. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 //Use of API to fetch Data from www.reddit.com.
@@ -33,15 +32,24 @@ class Networking {
             }.resume()
     }
     
-    func loadImage(image: String, imageLoaded: @escaping (UIImage) -> ()) {
-        let urlString = image.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!.replacingOccurrences(of: "&amp;", with: "&")
+    func loadImage(image: String, imageLoaded: @escaping (UIImage?) -> ()) {
+        guard let urlString = image.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)?.replacingOccurrences(of: "&amp;", with: "&") else {
+            imageLoaded(nil)
+            return
+        }
     //properly encoding this as a valid URL
-        let url = URL(string: urlString)
-        let request = URLRequest(url: url!)
+        guard let url = URL(string: urlString) else {
+            imageLoaded(nil)
+            return
+        }
+        let request = URLRequest(url: url)
         
         URLSession.shared.dataTask(with: request as URLRequest){ data,response,error in
             if let data = data, let img: UIImage = UIImage(data: data) {
                 imageLoaded(img)
+            }
+            else {
+                imageLoaded(nil)
             }
             }.resume()
     }

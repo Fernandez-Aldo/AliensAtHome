@@ -14,36 +14,33 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var articleImage: UIImageView!
     @IBOutlet weak var articleTitle: UILabel!
 
-    
-    var networking: Networking = Networking()
-    var articleData: PostData?
+    var controller: PostController!
     
     func configureView() {
-        
-        articleTitle.text = articleData?.title
-        self.title = articleData?.author
-        
-        if let image = articleData?.preview?.images.first?.source.url {
-            networking.loadImage(image: image) { image in
-                DispatchQueue.main.async {
-                    self.articleImage.image = image
-                }
-            }
-        } else {
+        guard let articleData = controller?.selectedArticleData() else {
+            // show error
             self.articleImage.image = UIImage(named: "NoImage")
+            return
         }
         
+        articleTitle.text = articleData.title
+        self.title = articleData.author
+        
+        controller.fullImage(at: controller.selectedPostIndex) { image in
+            guard let image = image else {
+                self.articleImage.image = UIImage(named: "NoImage")
+                return
+            }
+            DispatchQueue.main.async {
+                self.articleImage.image = image
+            }
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     
 }
 

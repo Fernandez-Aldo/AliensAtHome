@@ -15,14 +15,4 @@ class DetailCell: UITableViewCell {
     @IBOutlet weak var comments: UILabel!
     @IBOutlet weak var articleImage: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-    
 }
